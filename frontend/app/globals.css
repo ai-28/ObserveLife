@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Original CSS Variables - Keep for backward compatibility */
+:root {
+  --teal: #2A7F7F;
+  --teal-dark: #1A5F5F;
+  --teal-light: #E8F5F5;
+  --dark: #1A2E2E;
+  --navy: #1A3A5C;
+  --navy-light: #E8EFF7;
+  --warm: #8A5B2A;
+  --warm-light: #FDF3E7;
+  --green: #2E7D4F;
+  --green-light: #EAF5EE;
+  --amber: #B8720A;
+  --amber-light: #FEF7E8;
+  --gray: #666;
+  --lgray: #F4F4F4;
+  --border: #D0D0D0;
+  --white: #fff;
+  --cream: #F7F4EF;
+}
+
+@layer base {
+  :root {
+    /* Teal Light (#E8F5F5) for backgrounds */
+    --background: 180 30% 94%;
+    /* Dark (#1A2E2E) for foreground text */
+    --foreground: 180 28% 14%;
+
+    /* Teal Light for cards */
+    --card: 180 30% 94%;
+    --card-foreground: 180 28% 14%;
+
+    --popover: 180 30% 94%;
+    --popover-foreground: 180 28% 14%;
+
+    /* Deep Teal (#2A7F7F) as primary */
+    --primary: 180 50% 33%;
+    --primary-foreground: 180 30% 94%;
+
+    /* Navy (#1A3A5C) as secondary */
+    --secondary: 210 56% 23%;
+    --secondary-foreground: 180 30% 94%;
+
+    /* Teal Light for muted backgrounds */
+    --muted: 180 30% 94%;
+    --muted-foreground: 180 15% 45%;
+
+    /* Deep Teal for accent */
+    --accent: 180 50% 33%;
+    --accent-foreground: 180 30% 94%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Light borders using teal light */
+    --border: 180 20% 88%;
+    --input: 180 20% 88%;
+    --ring: 180 50% 33%;
+
+    --radius: 0.75rem;
+
+    /* Dark Teal and Navy gradient for hero */
+    --hero-gradient: linear-gradient(135deg, hsl(180 36% 26%) 0%, hsl(180 50% 33%) 50%, hsl(210 56% 23%) 100%);
+    --hero-overlay: hsl(180 36% 26% / 0.95);
+    --warm-glow: 0 8px 32px -8px hsl(180 50% 33% / 0.3);
+    --card-shadow: 0 4px 24px -4px hsl(180 28% 14% / 0.08);
+
+    /* Sidebar using teal palette */
+    --sidebar-background: 180 30% 94%;
+    --sidebar-foreground: 180 28% 14%;
+    --sidebar-primary: 180 50% 33%;
+    --sidebar-primary-foreground: 180 30% 94%;
+    --sidebar-accent: 180 30% 94%;
+    --sidebar-accent-foreground: 180 28% 14%;
+    --sidebar-border: 180 20% 88%;
+    --sidebar-ring: 180 50% 33%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+}
+
+body {
+    @apply bg-background text-foreground font-sans antialiased;
+  font-family: 'Inter', sans-serif;
+  background: #F0F2F0;
+  color: var(--dark);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(180 50% 33%), hsl(210 56% 23%));
+  }
+
+  .hero-bg {
+    background: var(--hero-gradient);
+  }
+
+  .warm-glow {
+    box-shadow: var(--warm-glow);
+  }
+
+  .card-shadow {
+    box-shadow: var(--card-shadow);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

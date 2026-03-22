@@ -1,11 +1,13 @@
+'use client';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
+  const goToLogin = () => {
+    window.location.href = "/login";
+  };
 
   const links = [
     { label: "How It Works", href: "#how-it-works" },
@@ -31,7 +33,7 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button variant="hero" size="sm" onClick={() => navigate("/login")}>
+          <Button variant="hero" size="sm" onClick={goToLogin}>
             Login
           </Button>
         </div>
@@ -57,7 +59,7 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            <Button variant="hero" size="sm" className="w-fit" onClick={() => navigate("/login")}>
+            <Button variant="hero" size="sm" className="w-fit" onClick={goToLogin}>
               Login
             </Button>
           </div>

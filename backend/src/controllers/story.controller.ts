@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth';
-import { query, transaction } from '../db';
+import { query } from '../db';
 import { AppError } from '../middleware/errorHandler';
 import { CreateStoryInput, UpdateStoryInput } from '../validators/story.validator';
 
@@ -79,14 +79,15 @@ export const getStories = async (req: AuthRequest, res: Response) => {
     throw new AppError('Not authenticated', 401);
   }
 
-  const { resident_id, status } = req.query;
+  const { resident_id } = req.query;
 
   let result;
   if (req.user.role === 'resident') {
     // Resident sees their own stories
     const resident = await query('SELECT id FROM residents WHERE user_id = $1', [req.user.id]);
     if (resident.rows.length === 0) {
-      return res.json({ success: true, data: { stories: [] } });
+      res.json({ success: true, data: { stories: [] } });
+      return;
     }
     result = await query(
       `SELECT s.*, p.text as prompt_text, q.question_text
@@ -104,9 +105,10 @@ export const getStories = async (req: AuthRequest, res: Response) => {
       [req.user.id, 'ACTIVE']
     );
     const residentIds = connections.rows.map(c => c.resident_id);
-    
+
     if (residentIds.length === 0) {
-      return res.json({ success: true, data: { stories: [] } });
+      res.json({ success: true, data: { stories: [] } });
+      return;
     }
 
     result = await query(

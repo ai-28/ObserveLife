@@ -3,7 +3,7 @@ import { query } from '../db';
 
 export const healthRoutes = Router();
 
-healthRoutes.get('/', async (req, res) => {
+healthRoutes.get('/', async (_req, res) => {
   try {
     // Test database connection
     await query('SELECT NOW()');

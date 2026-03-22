@@ -59,7 +59,8 @@ export const getQuestions = async (req: AuthRequest, res: Response) => {
     // Resident sees questions for their profile
     const resident = await query('SELECT id FROM residents WHERE user_id = $1', [req.user.id]);
     if (resident.rows.length === 0) {
-      return res.json({ success: true, data: { questions: [] } });
+      res.json({ success: true, data: { questions: [] } });
+      return;
     }
 
     let queryStr = `

@@ -21,10 +21,8 @@ pool.on('error', (err) => {
 
 // Helper function for queries
 export const query = async (text: string, params?: any[]) => {
-  const start = Date.now();
   try {
     const res = await pool.query(text, params);
-    const duration = Date.now() - start;
     return res;
   } catch (error) {
     console.error('Query error', { text, error });

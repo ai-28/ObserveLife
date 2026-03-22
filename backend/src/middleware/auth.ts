@@ -15,15 +15,16 @@ export const authenticate = async (
     req: AuthRequest,
     res: Response,
     next: NextFunction
-) => {
+): Promise<void> => {
     try {
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: false,
                 error: 'No token provided',
             });
+            return;
         }
 
         const token = authHeader.substring(7);
@@ -47,10 +48,11 @@ export const authenticate = async (
         );
 
         if (result.rows.length === 0) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: false,
                 error: 'User not found',
             });
+            return;
         }
 
         req.user = {
@@ -61,34 +63,40 @@ export const authenticate = async (
         };
 
         next();
+        return;
     } catch (error) {
         if (error instanceof jwt.JsonWebTokenError) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: false,
                 error: 'Invalid token',
             });
+            return;
         }
         next(error);
+        return;
     }
 };
 
 // Role-based access control
 export const requireRole = (...roles: string[]) => {
-    return (req: AuthRequest, res: Response, next: NextFunction) => {
+    return (req: AuthRequest, res: Response, next: NextFunction): void => {
         if (!req.user) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: false,
                 error: 'Authentication required',
             });
+            return;
         }
 
         if (!roles.includes(req.user.role)) {
-            return res.status(403).json({
+            res.status(403).json({
                 success: false,
                 error: 'Insufficient permissions',
             });
+            return;
         }
 
         next();
+        return;
     };
 };

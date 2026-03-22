@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth';
-import { query, transaction } from '../db';
+import { query } from '../db';
 import { AppError } from '../middleware/errorHandler';
 import { CreateConsentInput } from '../validators/consent.validator';
 

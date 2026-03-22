@@ -35,10 +35,11 @@ export const getPrompt = async (req: AuthRequest, res: Response) => {
   const result = await query('SELECT * FROM prompts WHERE id = $1', [id]);
 
   if (result.rows.length === 0) {
-    return res.status(404).json({
+    res.status(404).json({
       success: false,
       error: 'Prompt not found',
     });
+    return;
   }
 
   res.json({

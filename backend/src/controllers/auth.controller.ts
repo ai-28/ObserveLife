@@ -79,7 +79,7 @@ export const register = async (req: AuthRequest, res: Response) => {
       organization_id: user.organization_id,
     });
 
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       data: {
         user: {
@@ -92,6 +92,7 @@ export const register = async (req: AuthRequest, res: Response) => {
         token,
       },
     });
+    return;
   }
 
   // For other roles, create user normally
